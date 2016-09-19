@@ -140,9 +140,12 @@ class MadMimi
     do_request(path(:update_user_email, :email => existing_email), :post, :email => existing_email, :new_email => new_email)
   end
 
-  def members
+  def members(page = 1, per_page = 30)
     wrap_with_array('audience', 'member') do
-      do_request(path(:get_audience_members), :get)
+      do_request(path(:get_audience_members), :get, {
+        :page     => page,
+        :per_page => per_page
+      })
     end
   end
 
